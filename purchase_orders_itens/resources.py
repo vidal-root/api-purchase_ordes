@@ -20,6 +20,7 @@ class PurchaseOrdersItens(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('id', type=int, required=True, help='Informe um id valido')
     parser.add_argument('description', type=str, required=True, help='Informe uma descricao')
+    parser.add_argument('price', type=float, required=True, help='Informe um preco')
 
     def get(self, id):
         for po in purchase_orders:

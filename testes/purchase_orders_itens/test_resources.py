@@ -20,9 +20,9 @@ def test_get_itens_by_purchase_order_id_not_found(test_client):
 
 def test_post_purchase_order_item(test_client):
     obj = {
-        'id': 2,
-        'description': 'Item teste',
-        'price': 10.0
+        'id': 1,
+        'description': 'Sabao',
+        'price': 22.00
     }
 
     response = test_client.post('/purchase_orders/1/itens', data=json.dumps(obj), content_type='application/json')
