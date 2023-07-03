@@ -1,41 +1,23 @@
+import pytz
 from flask import jsonify
 from flask_restful import Resource, reqparse
-
-purchase_orders = [
-    {
-        'id': 1,
-        'description': 'Pedido 1',
-        'itens': [
-            {
-                'id': 1,
-                'description': 'Sabao',
-                'price': 22.00
-            }
-        ]
-    }
-]
+from model import PurchaseOrderModel
 
 
 class PurchaseOrders(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('id', type=int, required=True, help='Informe um id valido')
     parser.add_argument('description', type=str, required=True, help='Informe uma descrição')
 
     def get(self):
-        return jsonify(purchase_orders)
+        purchase_orders = PurchaseOrderModel.fill_all()
+        return [p.as_dict() for p in purchase_orders]
 
     def post(self):
         data = PurchaseOrders.parser.parse_args()
 
-        purchase_order = {
-            'id': data['id'],
-            'description': data['description'],
-            'itens': []
-        }
+        purchase_orders = PurchaseOrderModel(**data)
 
-        purchase_orders.append(purchase_order)
-
-        return jsonify(purchase_order)
+        return 
 
 
 class PurchaseOrderById(Resource):
