@@ -42,3 +42,5 @@ class PurchaseOrdersItens(Resource):
                 )
 
                 return jsonify(po)
+
+            return jsonify({'message': 'Este pedido nao existe'})

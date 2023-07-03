@@ -53,4 +53,15 @@ def test_post_invalid_description(test_client):
     assert response.status_code == 400
     assert response.json['message']['description'] == 'Informe uma descricao'
 
+def test_test_post_purchase_order_item_id_invalid(test_client):
 
+    obj = {
+        'id': 1,
+        'description': 'Sabao',
+        'price': 22.00
+    }
+
+    response = test_client.post('/purchase_orders/99/itens', data=json.dumps(obj), content_type='application/json')
+
+    assert response.status_code == 200
+    assert response.json['message'] == 'Este pedido nao existe'
